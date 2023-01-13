@@ -13,7 +13,7 @@ app.get("/",(req,res,next)=>{
         "message":"Get method is calling in /"
     })
 })
-app.post("/",(req,res,next)=>{
+app.put("/",(req,res,next)=>{
     res.status(200).send({
         "message":"Get method is calling in /"
     })
