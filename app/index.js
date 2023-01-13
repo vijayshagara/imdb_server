@@ -1,23 +1,9 @@
 const express = require("express");
 const env = require("dotenv")
+const indexRouterControllerc = require("./controllers/index.routerController")
 const app = express();
 env.config()
-
-app.post("/",(req,res,next)=>{
-    res.status(200).send({
-        "message":"Post method is calling in /"
-    })
-})
-app.get("/",(req,res,next)=>{
-    res.status(200).send({
-        "message":"Get method is calling in /"
-    })
-})
-app.put("/",(req,res,next)=>{
-    res.status(200).send({
-        "message":"Get method is calling in /"
-    })
-})
+app.use("/",indexRouterControllerc)
 
 app.use((req,res,next)=>{
     return res.status(404).send({
