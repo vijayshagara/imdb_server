@@ -3,9 +3,17 @@ router = express.Router()
 
 
 router.post("/",(req,res,next)=>{
-    res.status(200).send({
-        "message":"Post method is calling in /"
-    })
+
+    try {
+        //throw new Error("this is an error")
+        res.status(200).send({
+            "message":"Post method is calling in /"
+        })
+    } catch (error) {
+        return next(error)
+    }
+   
+    
 })
 router.get("/",(req,res,next)=>{
     res.status(200).send({

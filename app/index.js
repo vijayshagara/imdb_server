@@ -1,10 +1,21 @@
 const express = require("express");
 const env = require("dotenv")
-const indexRouterControllerc = require("./controllers/index.routerController")
+const movieRouterControllerc = require("./controllers/movie.routerController")
 const app = express();
 env.config()
-app.use("/",indexRouterControllerc)
+//ROUTER MIDDLEWARE
+app.use("/movies",movieRouterControllerc)
 
+//ERROR HANDLING
+app.use((err,req,res,next)=>{
+    console.log(err);
+    res.send(err)
+   return res.status(500).send({
+    message:"internal server error"
+   })
+})
+
+//PATH NOT FOUND
 app.use((req,res,next)=>{
     return res.status(404).send({
         "message":"Router Not Found"
