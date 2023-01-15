@@ -4,11 +4,6 @@ router = express.Router();
 
 router.post("/", async (req, res, next) => {
   try {
-    //throw new Error("this is an error")
-    /* res.status(200).send({
-            "message":"Post method is calling in /"
-        }) */
-
     const postedData = await db.user.create({
       ...req.body,
     });
@@ -19,9 +14,25 @@ router.post("/", async (req, res, next) => {
   }
 });
 router.get("/", async (req, res, next) => {
-  const getData = await db.user.findAll({});
-  res.send(getData);
+  try {
+    const getData = await db.user.findAll({});
+    res.status(200).send(getData);
+  } catch (error) {
+    return next(error);
+  }
 });
+router.get("/:id", async (req, res, next) => {
+    try {
+      const getDataById = await db.user.findAll({
+        where:{
+            id:req.params.id
+        }
+      });
+      res.status(200).send(getDataById);
+    } catch (error) {
+      return next(error);
+    }
+  });
 router.put("/:id", async (req, res, next) => {
   try {
     const editedValue = await db.user.update(req.body, {
@@ -36,7 +47,7 @@ router.put("/:id", async (req, res, next) => {
 });
 router.delete("/:id", async (req, res, next) => {
   try {
-    const deletedValue = await db.user.destroy({
+    await db.user.destroy({
       where: {
         id: req.params.id,
       },
